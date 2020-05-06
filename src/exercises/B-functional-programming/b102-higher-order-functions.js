@@ -13,7 +13,7 @@
  */
 
 // Iteration over elements
-[1,2,3,4,5].forEach(element => {
+[1,2,3,4,5,].forEach(element => {
   console.log(element);
 });
 
@@ -35,9 +35,12 @@ console.log(allLowerThan10);
 // Elements "Reduction"
 // Where map and filter can't help - use reduce!
 const sumOfElements = [1,2,3,4,5].reduce((acc, value) => acc + value);
+const sumOfLetters = ['A', 'B', 'C', 'D'].reduce((acc, value) => acc + value, 'Hello');
 console.log(sumOfElements);
+console.log(sumOfLetters);
 
 // Mapping and then flattening the array
 const elements = [1, 2, 3];
 console.log(elements.flatMap((e) => [e, e ** 2]))
+console.log(elements.map((e) => [e, e ** 2]).flat())
 

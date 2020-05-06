@@ -1,4 +1,24 @@
 import assert from 'assert'
+import { pipe, pluck, flatten, sum, curry, __ } from 'ramda'
+
+function sum3things(a, b, c) {
+    return a + b + c;
+}
+
+sum3things(1, 1, 1) //?
+sum3things(1, 1, 10) //?
+
+const currySum3Things = curry(sum3things);
+
+currySum3Things(1, 1, 1) //?
+currySum3Things(1, 1)(10) //?
+currySum3Things(2)(10)(100) //?
+
+
+currySum3Things('a', 'b', 'c') //?
+currySum3Things('a', __, 'c')('b') //?
+currySum3Things(__, __, 'c')('a','b') //?
+
 
 /**
   #Task:
@@ -48,8 +68,15 @@ const santaList = {
   ]
 };
 
+// const sum2 = (arr) => (a, b) => a + b;
+
 // Your solution:
-const cashAmount = 0;
+const cashAmount = pipe(
+    pluck('wishList'),
+    flatten(),
+    pluck('price'),
+    sum
+)(santaList.children);
 
 
 

@@ -13,14 +13,43 @@ import { $ } from '../../dom-api/selector'
   // Data came from back-end as table of strings:
   const backendApiCallRequest = () => ['marian', 'stefan', 'jadwiga', 'henryka', 'anna'];
 
-  // Your solution:
-
-
   // DOM wrappers:
   const ulUserList = $('#userList');
   const sampleLi = li('Sample element <li>');
 
-  ulUserList.appendChild(sampleLi);
+  // Your solution:
+  const userNames = backendApiCallRequest();
+  
+  function capitalize(name) {
+    const firstLetter = name.charAt(0).toUpperCase();
+    const rest = name.slice(1)
+    return firstLetter + rest;
+  }
+  const nameToLi = (name) => li(name);
+  function appendToList(listName) {
+    const ulUserList = $(listName);
+    return (liElement) => ulUserList.appendChild(liElement);
+  }
+  
+  // 
+  userNames
+    .map(capitalize)
+    .map(nameToLi)
+    .forEach((liElement) => ulUserList.appendChild(liElement))
+    
+  // 2nd task:
+  
+  const ulWomanList = $('#womenList');
+  
+  userNames
+    .map(capitalize)
+    .map(nameToLi)
+    .forEach((liElement) => ulWomanList.appendChild(liElement))
+   
+    // .forEach(appendToList('#userList'))
+  
+  // ulUserList.appendChild(li('Sample element 2'));
+  // ulUserList.appendChild(li('Sample element '));
 
   /*
     // Conceptual DOM layout for 2nd part of the task:

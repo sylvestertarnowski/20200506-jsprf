@@ -9,9 +9,21 @@
 */
 
 // PROVIDER 1:
-const myPromise = new Promise( (resolve) => {
-  resolve(1234);
+const myPromise = new Promise( (resolve, reject) => {
+   resolve(1234);
+   resolve(7365);
 });
+
+// Consumer 1
+// myPromise.then((num) => {
+//     console.log(num)
+// }) 
+// // Consumer 2
+// myPromise.then((num) => {
+//     console.log(num)
+// }) 
+
+/// Promise.resolve(1234)
 
 // PROVIDER 2:
 const myAsyncPromise = new Promise( (resolve) => {
