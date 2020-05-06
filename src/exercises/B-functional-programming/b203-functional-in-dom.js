@@ -19,7 +19,7 @@ import { $ } from '../../dom-api/selector'
 
   // Your solution:
   const userNames = backendApiCallRequest();
-  
+
   function capitalize(name) {
     const firstLetter = name.charAt(0).toUpperCase();
     const rest = name.slice(1)
@@ -30,24 +30,28 @@ import { $ } from '../../dom-api/selector'
     const ulUserList = $(listName);
     return (liElement) => ulUserList.appendChild(liElement);
   }
-  
-  // 
+
+  //
   userNames
     .map(capitalize)
     .map(nameToLi)
     .forEach((liElement) => ulUserList.appendChild(liElement))
-    
+    //.forEach(appendToList('#userList'))
+
   // 2nd task:
-  
-  const ulWomanList = $('#womenList');
-  
+
+  const ulWomenList = $('#womenList');
+
+  const isAWomanName = (name) => name.slice(-1) === 'a';
+
   userNames
+    .filter(isAWomanName)
     .map(capitalize)
     .map(nameToLi)
-    .forEach((liElement) => ulWomanList.appendChild(liElement))
-   
-    // .forEach(appendToList('#userList'))
-  
+    .forEach((liElement) => ulWomenList.appendChild(liElement))
+    //.forEach(appendToList('#womenList'))
+
+
   // ulUserList.appendChild(li('Sample element 2'));
   // ulUserList.appendChild(li('Sample element '));
 

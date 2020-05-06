@@ -1,4 +1,5 @@
 import { interval } from 'rxjs'
+import { map } from 'rxjs/operators'
 
 /**
   #Task:
@@ -10,9 +11,21 @@ import { interval } from 'rxjs'
   Here, too, we cannot allow to "memory leaks"
 */
 
-const number$ = interval(1000);
+const number$ = interval(500);
 
-number$.subscribe((no) => {
+number$.pipe(
+    map(n => n * 300)
+).subscribe((no) => {
   console.log('My number is', no)
 });
 
+/*
+let x = 0;
+const inter = setInterval(() => {
+    console.log('My number is', x++)
+}, 1000)
+
+setTimeout(() => {
+    clearInterval(inter)
+}, 3000)
+*/

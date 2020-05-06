@@ -11,8 +11,8 @@ const myHelloWorldJob = function() {
 
 function executor(jobFunction) {
 
-    jobFunction()
-    jobFunction()
+    jobFunction('Goodbye WORLD!')
+    jobFunction('See you around')
     
 	// setTimeout(() => {
 	// 	jobFunction()
@@ -27,7 +27,8 @@ executor(myHelloWorldJob);
 
 // #2
 executor(() => {
-	console.log('Goodbye World !')
+    console.log()
+	// console.log('Goodbye World !')
 })
 
 

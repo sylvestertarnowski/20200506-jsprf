@@ -12,8 +12,28 @@ import { Observable } from 'rxjs'
   ../C-asynchronous-concepts/c206-promise-from-anything.js
 */
 
-  new Observable( (observer) => {
+// PROVIDER
+ const number$ = new Observable( (observer) => {
 
     observer.next(1234);
+    observer.complete();
+  })
+
+  number$.subscribe(
+    (n) => {
+        console.log(n)
+    },
+    (/*err*/) => {
+
+    },
+    () => {
+        console.log('completed!')
+    }
+  );
+
+  number$.subscribe((n) => {
+      console.log(n)
   });
+// CONSUMER:
+
 
