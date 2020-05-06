@@ -1,5 +1,5 @@
-import { interval } from 'rxjs'
-
+import { interval, timer } from 'rxjs'
+import {map, takeUntil } from 'rxjs/operators'
 /**
   #Task:
   End subscription after 3 seconds.
@@ -12,7 +12,7 @@ import { interval } from 'rxjs'
 
 const number$ = interval(1000);
 
-number$.subscribe((no) => {
+number$.pipe(map(n => n + 1), takeUntil(timer(4000))).subscribe((no) => {
   console.log('My number is', no)
 });
 

@@ -1,4 +1,5 @@
-import { Observable } from 'rxjs'
+import { Observable } from 'rxjs';
+import { delay, tap, map } from 'rxjs/operators';
 
 /**
   #Task:
@@ -12,8 +13,16 @@ import { Observable } from 'rxjs'
   ../C-asynchronous-concepts/c206-promise-from-anything.js
 */
 
-  new Observable( (observer) => {
+const provider = new Observable((observer) => {
+  observer.next(1234);
+  observer.complete();
+});
 
-    observer.next(1234);
-  });
+provider
+  .pipe(
+    delay(2000),
+    map((val) => val * 2)
+  )
+  .subscribe((val) => console.log(val), () => {} , () => console.log('complete'));
 
+provider.subscribe((val) => console.log(val));

@@ -1,4 +1,3 @@
-
 /**
    #Task:
    1. Assuming that the bank server has data related to the amount of current exchange rates.
@@ -12,18 +11,18 @@
    Outline of the "Callback Hell" problem.
 */
 
-const makeItem = (name, amount, value) => ({name, amount, value});
+const makeItem = (name, amount, value) => ({ name, amount, value });
 
 const bankAPI = {
-
   // Here we will need to change something:
-  fetchCurrencies() {
+  fetchCurrencies(callback) {
     const plnTo = {
       USD: 3.78602,
       EUR: 4.32559,
-      PLN: 1
+      PLN: 1,
     };
-  }
+    callback(plnTo);
+  },
 };
 
 const yourCart = [
@@ -31,11 +30,13 @@ const yourCart = [
   makeItem('Infento: Genius Kit', 1, 549),
 ];
 
-const valueInUSD = yourCart.map(i => i.value).reduce((acc, value) => acc + value);
+const valueInUSD = yourCart
+  .map((i) => i.value)
+  .reduce((acc, value) => acc + value);
 
 // Your solution:
 const valueInPLN = 0;
+const currency = bankAPI.fetchCurrencies(console.log);
 
 console.log('Your cart value in USD:', valueInUSD);
 console.log('Your cart value in PLN:', valueInPLN);
-

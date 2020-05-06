@@ -22,14 +22,14 @@ const backendApiCallRequest = () => [
   NaN,
 ];
 
-const getWomen = (item) => item.charAt(item.length - 1) === 'a';
+const isWoman = (item) => item.charAt(item.length - 1) === 'a';
 const appendList = (listId) => (item) => $(listId).appendChild(li(item));
 const capitalize = (item) => item.charAt(0).toUpperCase() + item.slice(1);
 const isNotFalsy = (n) => n;
 
 backendApiCallRequest()
   .filter(isNotFalsy)
-  .filter(getWomen)
+  .filter(isWoman)
   .map(capitalize)
   .forEach(appendList('#womenList'));
 backendApiCallRequest()
