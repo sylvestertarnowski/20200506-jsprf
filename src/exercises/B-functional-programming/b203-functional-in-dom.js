@@ -1,5 +1,5 @@
-import { li } from '../../dom-api/make-dom'
-import { $ } from '../../dom-api/selector'
+import { li } from '../../dom-api/make-dom';
+import { $ } from '../../dom-api/selector';
 
 /**
     #Task:
@@ -10,19 +10,40 @@ import { $ } from '../../dom-api/selector'
     Using functional programming in a practical example where we render something in the DOM.
 */
 
-  // Data came from back-end as table of strings:
-  const backendApiCallRequest = () => ['marian', 'stefan', 'jadwiga', 'henryka', 'anna'];
+// Data came from back-end as table of strings:
+const backendApiCallRequest = () => [
+  'marian',
+  'stefan',
+  'jadwiga',
+  'henryka',
+  'anna',
+  null,
+  undefined,
+  NaN,
+];
 
-  // Your solution:
+const getWomen = (item) => item.charAt(item.length - 1) === 'a';
+const appendList = (listId) => (item) => $(listId).appendChild(li(item));
+const capitalize = (item) => item.charAt(0).toUpperCase() + item.slice(1);
+const isNotFalsy = (n) => n;
 
+backendApiCallRequest()
+  .filter(isNotFalsy)
+  .filter(getWomen)
+  .map(capitalize)
+  .forEach(appendList('#womenList'));
+backendApiCallRequest()
+  .filter(isNotFalsy)
+  .map(capitalize)
+  .forEach(appendList('#userList'));
 
-  // DOM wrappers:
-  const ulUserList = $('#userList');
-  const sampleLi = li('Sample element <li>');
+// DOM wrappers:
+// const ulUserList = $('#userList');
+// const sampleLi = li('Sample element <li>');
 
-  ulUserList.appendChild(sampleLi);
+// ulUserList.appendChild(sampleLi);
 
-  /*
+/*
     // Conceptual DOM layout for 2nd part of the task:
     <div class="row">
         <div class="col-6">

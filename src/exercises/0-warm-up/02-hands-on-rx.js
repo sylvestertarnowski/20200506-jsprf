@@ -1,14 +1,15 @@
-import { Observable } from 'rxjs'
+import { Observable } from 'rxjs';
 
 // PROVIDER:
 const number$ = new Observable((subscriber) => {
-	subscriber.next(1);
-	//subscriber.next(2);
-	//subscriber.next(3);
-})
-
+  subscriber.next(() => setTimeout(() => console.log(50), 2000));
+	// subscriber.error(new Error('oh no'))
+  subscriber.complete();
+});
 
 // CONSUMER(s):
-number$.subscribe((num) => {
-	console.log('I got:', num);
-})
+number$.subscribe(
+  (num) => console.log('I got:', num()),
+  (err) => console.log(err),
+  () => console.log('Complete')
+);

@@ -1,4 +1,3 @@
-
 /**
  #Tasks:
  1. Change first letters of the names to uppercase and show as a new Table:
@@ -21,8 +20,24 @@
 */
 
 // Data came from back-end as table of strings:
-const backendApiRequest = () => ['marian', 'stefan', 'jadwiga', 'henryka', 'anna'];
+const backendApiRequest = () => [
+  'marian',
+  'stefan',
+  'jadwiga',
+  'henryka',
+  'anna',
+  '',
+  null
+];
+/** @param {string} value */
+function isString(value) {
+   return typeof value === "string"
+}
 
 // Solution:
-const response = backendApiRequest();
+const response = backendApiRequest().filter(n => n).map(
+  (item) => item.charAt(0).toUpperCase() + item.slice(1)
+);
+console.log(response);
 
+response.forEach((item) => console.log('.'.repeat(20 - item.length) + item));

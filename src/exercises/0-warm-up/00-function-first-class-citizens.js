@@ -1,13 +1,14 @@
 // Reminder: What environment are we dealing with
-const myHelloWorldJob = function() {
-	console.log('Hello World');
-}
+
+const myHelloWorldJob = function () {
+  console.log('Hello World');
+};
 
 function executor(jobFunction) {
-
-	setTimeout(() => {
-		jobFunction()
-	}, 2000)
+	jobFunction();
+  setTimeout(() => {
+    jobFunction();
+  }, 2000);
 }
 
 // See how we can run the executor
@@ -17,7 +18,5 @@ executor(myHelloWorldJob);
 
 // #2
 executor(() => {
-	console.log('Goodbye World !')
-})
-
-
+  console.log('Goodbye World !');
+});

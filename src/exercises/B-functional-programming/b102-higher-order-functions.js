@@ -34,7 +34,7 @@ console.log(allLowerThan10);
 
 // Elements "Reduction"
 // Where map and filter can't help - use reduce!
-const sumOfElements = [1,2,3,4,5].reduce((acc, value) => acc + value);
+const sumOfElements = [1,2,3,4,5].reduce((acc, value) => ({...acc, [value]: value }) , {});
 console.log(sumOfElements);
 
 // Mapping and then flattening the array

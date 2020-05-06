@@ -21,8 +21,24 @@ const subWoofer  = { item: 'A better SubWoofer', price: 500 };
 
 // Your solution:
 function sumItems(a, b) {
-    return a + b;
+    if (b) {
+        return a + b
+    }
+    return function(b) {
+        return a + b
+    }
 }
+
+//
+sumItems(1 , 1) //?
+
+const partialSum = sumItems(homeCinema.price);
+
+/// idle time.....accordion
+const totalSum = partialSum(subWoofer.price);
+
+console.log(totalSum)
+
 
 // synchronous obviously, looks like that:
 sumItems(homeCinema.price, subWoofer.price) //?
