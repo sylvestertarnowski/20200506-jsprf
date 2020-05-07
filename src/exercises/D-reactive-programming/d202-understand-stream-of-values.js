@@ -1,3 +1,5 @@
+import { fromEvent, Observable, interval, from } from 'rxjs';
+import { takeUntil, take } from 'rxjs/operators';
 
 /**
   #Task:
@@ -10,21 +12,32 @@
 
 // Your solution:
 
-  // #1 ----------
-  document.addEventListener('click', (ev) => {
-    console.log('Hello click !', ev);
-  });
+// #1 ----------
 
-  // #2 ----------
-  let no = 0;
-  const inter = setInterval(() => {
-    console.log(no++)
-  }, 1000);
+const event$ = fromEvent(document, 'click')
+event$.subscribe((val) => console.log('Event ', val));
 
-  setTimeout(() => {
-    clearInterval(inter);
-  }, 4000);
+// #2 ----------
+let no = 0;
+// const inter = setInterval(() => {
+//   console.log(no++);
+// }, 1000);
+// setTimeout(() => {
+//   clearInterval(inter);
+// }, 4000);
 
-  // #3 ----------
-  const observableWannabeArray = ['this', 'also', 'can', 'be', 'Observable'];
+const second$ = interval(1000);
 
+const subscription = second$.subscribe(console.log);
+
+setTimeout(() => {
+  subscription.unsubscribe();
+}, 4000)
+
+
+// #3 ----------
+const observableWannabeArray = ['this', 'also', 'can', 'be', 'Observable'];
+
+const string$ = from(observableWannabeArray);
+
+string$.subscribe(console.log)

@@ -1,4 +1,6 @@
 import { $ } from '../../dom-api/selector'
+import { fromEvent } from 'rxjs';
+import { reduce, mapTo, scan, startWith} from 'rxjs/operators'
 
 /**
   #Task:
@@ -15,3 +17,10 @@ const h2Counter = $('#counter');
 
 // Your solution:
 
+const click$ = fromEvent(document, 'click');
+
+const sum = (a,b) => a + b;
+
+click$.pipe(mapTo(1), startWith(100), scan(sum)).subscribe((val) => {
+  h2Counter.textContent = val
+})

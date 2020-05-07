@@ -61,30 +61,22 @@ const pluck = (key) => (obj) => obj[key];
 // const pluck = key => obj => obj[key];
 
 function oldPluck(key) {
-    return function(obj) {
-        return obj[key];
-    }
+  return function (obj) {
+    return obj[key];
+  };
 }
 
-console.log(
-    allQuotes
-        .flatMap(pluck('books'))
-        .map(pluck('quote'))
-)
-
+console.log(allQuotes.flatMap(pluck('books')).map(pluck('quote')));
 
 // Our logic to plug something in JS (that we use to deal with generic plug)
 const user = {
-    name: 'Michal'
-}
+  name: 'Michal',
+};
 
 const keyedName = 'name';
 
-
-console.log(user['name'])
-console.log(user[keyedName])
-
-const pluck = (key) => (obj) => obj[key];
+console.log(user['name']);
+console.log(user[keyedName]);
 
 // Your solution:
 const allQuotes = api.users.flatMap(pluck('books')).map(pluck('quote'));

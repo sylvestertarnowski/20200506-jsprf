@@ -1,5 +1,5 @@
-import { interval } from 'rxjs'
-import { map } from 'rxjs/operators'
+import { interval, Subscription } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 
 /**
   #Task:
@@ -13,11 +13,13 @@ import { map } from 'rxjs/operators'
 
 const number$ = interval(500);
 
-number$.pipe(
-    map(n => n * 300)
-).subscribe((no) => {
-  console.log('My number is', no)
-});
+const subscription = number$.pipe(take(6)).subscribe((no) => {
+  console.log('My number is', no);
+}, () => {}, () => console.log('Complete'));
+
+// setTimeout(() => {
+//   subscription.unsubscribe();
+// }, 3000);
 
 /*
 let x = 0;

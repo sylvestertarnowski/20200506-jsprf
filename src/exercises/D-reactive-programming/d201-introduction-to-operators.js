@@ -1,5 +1,5 @@
 import { interval } from 'rxjs'
-
+import { take, map } from 'rxjs/operators'
 /**
     #Task:
     We are only interested in the first 4 emissions from the stream of numbers.
@@ -13,4 +13,10 @@ import { interval } from 'rxjs'
 */
 
 const number$ = interval(800);
+
+const toHelloWorld = map(val => `Hello world ${val}`)
+
+const complete = () => console.log('Complete!')
+
+number$.pipe(take(4), toHelloWorld).subscribe(console.log, () => {}, complete)
 
