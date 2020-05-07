@@ -15,14 +15,15 @@ const makeItem = (name, amount, value) => ({ name, amount, value });
 
 const bankAPI = {
   // Here we will need to change something:
-  fetchCurrencies(callback) {
+  fetchCurrencies(callbackFn) {
     const plnTo = {
       USD: 3.78602,
       EUR: 4.32559,
       PLN: 1,
     };
-    callback(plnTo);
-  },
+    callbackFn(plnTo)
+    // return plnTo;
+  }
 };
 
 const yourCart = [
@@ -36,7 +37,10 @@ const valueInUSD = yourCart
 
 // Your solution:
 const valueInPLN = 0;
-const currency = bankAPI.fetchCurrencies(console.log);
+bankAPI.fetchCurrencies((currency) => {
+    console.log(currency)
+});
+
 
 console.log('Your cart value in USD:', valueInUSD);
 console.log('Your cart value in PLN:', valueInPLN);

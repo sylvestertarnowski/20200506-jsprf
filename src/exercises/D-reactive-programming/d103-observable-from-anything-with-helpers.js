@@ -1,3 +1,4 @@
+import { /*Observable, */ from, of } from 'rxjs';
 
 /**
   #Task:
@@ -15,9 +16,32 @@ import { from, of } from 'rxjs';
 const vegetable = 'tomato';
 const fruits = ['apples', 'bananas', 'mangoes', 'cherries'];
 
-const observableVeg = of(vegetable);
-const observableFruits = from(fruits);
+const vegetable$ = of(vegetable);
+const fruits$ = from(fruits);
 
-observableVeg.subscribe(val => console.log(val), (e) => {console.log(e)}, () => console.log('COmplete'))
-observableFruits.subscribe(val => console.log(val), (e) => {console.log(e)}, () => console.log('COmplete'))
+
+vegetable$.subscribe((veg) => {
+     console.log(veg)
+}, (/*err*/)=> {}, () => {
+    console.log('complete')
+})
+
+fruits$.subscribe((fruit) => {
+    console.log(fruit)
+})
+
+// const vegetable$ = new Observable( (observer) => {
+
+
+//     fruits.forEach((f) => {
+//         observer.next(f);
+//     })
+
+//     observer.next(vegetable);
+//     observer.complete();
+// })
+
+// vegetable$.subscribe((veg) => {
+//     console.log(veg)
+// })
 

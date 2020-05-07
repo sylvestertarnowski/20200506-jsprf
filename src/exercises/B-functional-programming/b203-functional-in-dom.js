@@ -22,26 +22,47 @@ const backendApiCallRequest = () => [
   NaN,
 ];
 
-const isWoman = (item) => item.charAt(item.length - 1) === 'a';
-const appendList = (listId) => (item) => $(listId).appendChild(li(item));
-const capitalize = (item) => item.charAt(0).toUpperCase() + item.slice(1);
-const isNotFalsy = (n) => n;
+  // DOM wrappers:
+  const ulUserList = $('#userList');
+  const sampleLi = li('Sample element <li>');
 
-backendApiCallRequest()
-  .filter(isNotFalsy)
-  .filter(isWoman)
-  .map(capitalize)
-  .forEach(appendList('#womenList'));
-backendApiCallRequest()
-  .filter(isNotFalsy)
-  .map(capitalize)
-  .forEach(appendList('#userList'));
+  // Your solution:
+  const userNames = backendApiCallRequest();
 
-// DOM wrappers:
-// const ulUserList = $('#userList');
-// const sampleLi = li('Sample element <li>');
+  function capitalize(name) {
+    const firstLetter = name.charAt(0).toUpperCase();
+    const rest = name.slice(1)
+    return firstLetter + rest;
+  }
+  const nameToLi = (name) => li(name);
+  function appendToList(listName) {
+    const ulUserList = $(listName);
+    return (liElement) => ulUserList.appendChild(liElement);
+  }
 
-// ulUserList.appendChild(sampleLi);
+  //
+  userNames
+    .map(capitalize)
+    .map(nameToLi)
+    .forEach((liElement) => ulUserList.appendChild(liElement))
+    //.forEach(appendToList('#userList'))
+
+  // 2nd task:
+
+  const ulWomenList = $('#womenList');
+
+  const isAWomanName = (name) => name.slice(-1) === 'a';
+
+  userNames
+    .filter(isAWomanName)
+    .map(capitalize)
+    .map(nameToLi)
+    .forEach((liElement) => ulWomenList.appendChild(liElement))
+    //.forEach(appendToList('#womenList'))
+
+
+  // ulUserList.appendChild(li('Sample element 2'));
+  // ulUserList.appendChild(li('Sample element '));
 
 /*
     // Conceptual DOM layout for 2nd part of the task:

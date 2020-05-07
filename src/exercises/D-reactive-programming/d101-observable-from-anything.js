@@ -13,16 +13,29 @@ import { delay, tap, map } from 'rxjs/operators';
   ../C-asynchronous-concepts/c206-promise-from-anything.js
 */
 
-const provider = new Observable((observer) => {
-  observer.next(1234);
-  observer.complete();
-});
+// PROVIDER
+ const number$ = new Observable( (observer) => {
 
-provider
-  .pipe(
-    delay(2000),
-    map((val) => val * 2)
-  )
-  .subscribe((val) => console.log(val), () => {} , () => console.log('complete'));
+    observer.next(1234);
+    observer.complete();
+  })
+
+  number$.subscribe(
+    (n) => {
+        console.log(n)
+    },
+    (/*err*/) => {
+
+    },
+    () => {
+        console.log('completed!')
+    }
+  );
+
+  number$.subscribe((n) => {
+      console.log(n)
+  });
+// CONSUMER:
+
 
 provider.subscribe((val) => console.log(val));

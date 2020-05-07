@@ -50,11 +50,14 @@ const santaList = {
   ]
 };
 
-const pluck = (key) => (obj) => obj[key]
-const sumAllPrices = (acc, val) => acc + val
+const pluck = (key) => (obj) => obj[key];
+const sum = (a, b) => a + b;
 
 // Your solution:
-const cashAmount = santaList.children.flatMap(pluck('wishList')).map(pluck('price')).reduce(sumAllPrices);
+const cashAmount = santaList.children
+                            .flatMap(pluck('wishList'))
+                            .map(pluck('price'))
+                            .reduce(sum);
 
 
 
