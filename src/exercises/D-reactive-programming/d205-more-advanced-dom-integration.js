@@ -1,8 +1,9 @@
-import '@babel/polyfill'
+import '@babel/polyfill';
 
-import { $ } from '../../dom-api/selector'
-import { li } from '../../dom-api/make-dom'
+import { $ } from '../../dom-api/selector';
+import { li } from '../../dom-api/make-dom';
 import { interval } from 'rxjs';
+import { take, scan, filter, startWith, map } from 'rxjs/operators';
 
 /**
   #Task:
@@ -16,7 +17,7 @@ import { interval } from 'rxjs';
 */
 
 // Helper: Lawyer generator:
-function* pearsonSpecterLittGenerator(){
+function* pearsonSpecterLittGenerator() {
   yield 'Jessica Pearson';
   yield 'Harvey Specter';
   yield 'Louis Litt';
@@ -25,14 +26,31 @@ function* pearsonSpecterLittGenerator(){
 const lawyerEnter = pearsonSpecterLittGenerator();
 
 // Helper DOM selectors:
-const myUlList = $('#ulLawyers')
-const h2Timer = $('#timer')
-const divAlertTimerOver = $('#alertTimeOver')
-// divAlertTimerOver.style.visibility = 'hidden';
+const myUlList = $('#ulLawyers');
+const h2Timer = $('#timer');
+const divAlertTimerOver = $('#alertTimeOver');
+divAlertTimerOver.style.visibility = 'hidden';
 
 // Helper: making the <li> element with text
 const makeLawyer = (name) => li(name);
 
 // Your solution:
 
+const second$ = interval(1000).pipe(
+  map((v) => v + 1),
+  take(6),
+  startWith(0)
+);
+
+second$.subscribe((v) => (h2Timer.textContent = v), () => {}, () => {
+    divAlertTimerOver.style.visibility = 'visible';
+    divAlertTimerOver.textContent = 'Time is up!';
+});
+
+second$.pipe(filter((v) => v % 2 === 0 && v >= 2)).subscribe(() => {
+  const lawyer = lawyerEnter.next().value;
+  if (lawyer) {
+    myUlList.appendChild(makeLawyer(lawyer));
+  }
+});
 

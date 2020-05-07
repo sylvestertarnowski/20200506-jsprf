@@ -1,21 +1,23 @@
-import { li } from '../../dom-api/make-dom'
-import { $ } from '../../dom-api/selector'
+import { li } from '../../dom-api/make-dom';
+import { $ } from '../../dom-api/selector';
+import { from, fromEvent } from 'rxjs';
+import { debounce, startWith, debounceTime, map, tap, distinctUntilChanged } from 'rxjs/operators';
 
 function userService() {
-  const userFactory = ( name, age, profession ) => ({ name, age, profession });
+  const userFactory = (name, age, profession) => ({ name, age, profession });
 
   return {
     getAll: () => [
-      userFactory( 'Zdzisław Ącki', 48, 'plumber' ),
-      userFactory( 'Kasia Kowalska', 28, 'actress' ),
-      userFactory( 'Michał Legacy', 58, 'programmer' ),
-      userFactory( 'Roman Nowak', 68, 'politician' ),
-      userFactory( 'Anna Nowak', 25, 'economist' ),
-      userFactory( 'Zdzisław Nowak', 44, 'banker' ),
-      userFactory( 'Roman Zbych', 35, 'economist' ),
-      userFactory( 'Janina Bosko', 35, 'programmer' ),
-    ]
-  }
+      userFactory('Zdzisław Ącki', 48, 'plumber'),
+      userFactory('Kasia Kowalska', 28, 'actress'),
+      userFactory('Michał Legacy', 58, 'programmer'),
+      userFactory('Roman Nowak', 68, 'politician'),
+      userFactory('Anna Nowak', 25, 'economist'),
+      userFactory('Zdzisław Nowak', 44, 'banker'),
+      userFactory('Roman Zbych', 35, 'economist'),
+      userFactory('Janina Bosko', 35, 'programmer'),
+    ],
+  };
 }
 
 /**
@@ -30,14 +32,36 @@ function userService() {
   Remember about the possibility of checking operator behavior on: http://rxmarbles.com/
 */
 
-  // Helper DOM wrappers:
-  const makeLi = (user) => li(`${user.name} (${user.age}) - ${user.profession}`);
+// Helper DOM wrappers:
+const makeLi = (user) => li(`${user.name} (${user.age}) - ${user.profession}`);
 
-  // Helper selectors:
-  const userList = $('ul#userList')
-  const inputFilter = $('input[name="filter"]')
+// Helper selectors:
+const userList = $('ul#userList');
+const inputFilter = $('input[name="filter"]');
 
-  // Your solution:
+// Your solution:
+const users = userService().getAll();
 
+// console.log(users)
 
+const user$ = from(userService().getAll());
 
+const input$ = fromEvent(inputFilter, 'keyup').pipe(
+  map((ev) => ev.target.value)
+);
+
+const resetList = () => (userList.innerHTML = '');
+
+input$
+  .pipe(
+    debounceTime(400),
+    distinctUntilChanged(),
+    tap(resetList),
+    startWith(''),
+    map((value) => users.filter((user) => user.profession.includes(value)))
+  )
+  .subscribe((filteredUsers) => {
+    for (let user of filteredUsers) {
+      userList.appendChild(makeLi(user));
+    }
+  });

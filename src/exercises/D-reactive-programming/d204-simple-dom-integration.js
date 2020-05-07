@@ -1,6 +1,6 @@
-import { $ } from '../../dom-api/selector'
+import { $ } from '../../dom-api/selector';
 import { fromEvent } from 'rxjs';
-import { reduce, mapTo, scan, startWith} from 'rxjs/operators'
+import { reduce, mapTo, scan, startWith } from 'rxjs/operators';
 
 /**
   #Task:
@@ -11,7 +11,6 @@ import { reduce, mapTo, scan, startWith} from 'rxjs/operators'
   Strengthening the use of helpers and operators, getting to know more operators.
 */
 
-
 // Helper DOM selector:
 const h2Counter = $('#counter');
 
@@ -19,8 +18,8 @@ const h2Counter = $('#counter');
 
 const click$ = fromEvent(document, 'click');
 
-const sum = (a,b) => a + b;
+const sum = (a, b) => a + b;
 
 click$.pipe(mapTo(1), startWith(100), scan(sum)).subscribe((val) => {
-  h2Counter.textContent = val
-})
+  h2Counter.textContent = val;
+});
